@@ -228,23 +228,33 @@ EOF
     fi
 }
 
-echo -e "Select an action:"
-echo -e "  [1] Apply ${GREEN}Temporarily${NC} (Lost on reboot - Good for testing)"
-echo -e "  [2] Apply ${RED}Permanently${NC} (Writes to Netplan)"
-echo -e "  [3] Exit (Do nothing)"
-echo ""
-read -p "Enter choice [1-3]: " choice
-
-case $choice in
-    1)
-        apply_temp
-        ;;
-    2)
-        apply_perm
-        ;;
-    *)
-        echo "Exiting without changes."
-        ;;
-esac
+while true; do
+    echo -e "Select an action:"
+    echo -e "  [1] Apply ${GREEN}Temporarily${NC} (Lost on reboot - Good for testing)"
+    echo -e "  [2] Apply ${RED}Permanently${NC} (Writes to Netplan)"
+    echo -e "  [3] Exit (Do nothing)"
+    echo ""
+    
+    # Read from /dev/tty to ensure it works even if piped (e.g., curl ... | bash)
+    read -p "Enter choice [1-3]: " choice < /dev/tty
+    
+    case $choice in
+        1)
+            apply_temp
+            break
+            ;;
+        2)
+            apply_perm
+            break
+            ;;
+        3)
+            echo "Exiting without changes."
+            break
+            ;;
+        *)
+            echo -e "${RED}[!] Invalid choice '$choice'. Please enter 1, 2, or 3.${NC}\n"
+            ;;
+    esac
+done
 
 echo ""
