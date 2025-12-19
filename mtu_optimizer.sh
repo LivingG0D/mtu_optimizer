@@ -12,7 +12,7 @@
 # ==============================================================================
 
 # --- Configuration ---
-TARGET="8.8.8.8"           # Reliable Target (Google DNS)
+DEFAULT_TARGET="1.1.1.1"     # Default Target (Cloudflare DNS)
 MIN_PAYLOAD=1200           # Floor for search
 MAX_PAYLOAD=1472           # Ceiling (1500 MTU - 28 bytes IP/ICMP overhead)
 STRESS_COUNT=50            # Packets for stress test (Higher = more accurate)
@@ -47,6 +47,19 @@ for cmd in ping awk grep ip; do
         apt-get update && apt-get install -y iputils-ping iproute2
     fi
 done
+
+# --- Target IP Input ---
+echo -e "${BLUE}[*] Target IP Configuration${NC}"
+echo -e "    Enter the target IP for MTU testing."
+echo -e "    Press ${BOLD}Enter${NC} for default: ${CYAN}$DEFAULT_TARGET${NC}"
+read -p "    Target IP: " USER_TARGET < /dev/tty
+
+if [[ -z "$USER_TARGET" ]]; then
+    TARGET="$DEFAULT_TARGET"
+else
+    TARGET="$USER_TARGET"
+fi
+echo -e "    Using target: ${GREEN}$TARGET${NC}\n"
 
 # --- Step 1: Network Detection ---
 echo -e "${BLUE}[1/5] Detecting Network Configuration...${NC}"
