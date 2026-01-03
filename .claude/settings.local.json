@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(code-review)",
+      "Bash(cd:*)",
+      "Bash(git -C \"X:\\\\mtu_optimizer\" status)",
+      "Bash(git -C \"X:\\\\mtu_optimizer\" diff --stat)",
+      "Bash(git -C \"X:\\\\mtu_optimizer\" log --oneline -5)",
+      "Bash(git -C \"X:\\\\mtu_optimizer\" add README.md mtu_optimizer.sh)",
+      "Bash(git -C \"X:\\\\mtu_optimizer\" commit -m \"$\\(cat <<''EOF''\nrefactor: major security and robustness overhaul \\(v2.2\\)\n\n- Add strict mode \\(set -euo pipefail\\) for safer execution\n- Add IP/hostname validation to prevent injection attacks\n- Add cleanup trap for Ctrl+C handling \\(restores original MTU\\)\n- Replace grep -oP with POSIX-compatible sed parsing\n- Add timeout protection for dependency installation\n- Add MTU range validation \\(68-65535\\) before applying\n- Add -- to ping commands to prevent option injection\n- Add Netplan availability check before permanent apply\n- Add verbose/debug mode \\(VERBOSE=1\\)\n- Fix dependency check with correct package mappings\n- Use local variables in all functions\n- Improve error messages and edge case handling\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C \"X:\\\\mtu_optimizer\" push)"
+    ]
+  }
+}
